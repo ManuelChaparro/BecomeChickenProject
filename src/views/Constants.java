@@ -50,6 +50,7 @@ public class Constants {
 	public static final String PATH_WIZARD_F_1 = "/img/wizardF1.png";
 	public static final String PATH_WIZARD_F_2 = "/img/wizardF2.png";
 	public static final String PATH_WIZARD_F_3 = "/img/wizardF3.png";
+	public static final String WALLPAPER_WORLD = "/img/becomeChickenWorld.png";
 	public static final String PATH_WALLPAPER_ONE = "/img/wallpaperOne.PNG";
 	public static final String PATH_WALLPAPER_TWO = "/img/wallpaperTwo.PNG";
 	public static final String PATH_WALLPAPER_THREE = "/img/wallpaperThree.PNG";

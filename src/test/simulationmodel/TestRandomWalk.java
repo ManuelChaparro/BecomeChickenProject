@@ -19,18 +19,6 @@ public class TestRandomWalk {
 
     public ArrayList<Integer> getDataX(int xInit, int xFinal){
         ArrayList<Integer> toReturn = new ArrayList<Integer>();
-        RandomWalk myRandomWalk = new RandomWalk();
-        int aux = 0;
-        int actualStep = 0;
-        for (int i = 0; i < 9999999; i++) {
-            actualStep = myRandomWalk.generateStep();
-            if (actualStep == 0){
-                aux-=1;
-            }else {
-                aux +=1;
-            }
-            toReturn.add(aux);
-        }
         return toReturn;
     }
 

@@ -15,7 +15,7 @@ public class GamePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private Game game;
 	private Image iconTutorial;
-	private int stage, width, height;
+	private int stage, width, height, limitWidth, wallpaperX;
 	
 	public GamePanel() {
 		setPreferredSize(new Dimension(1000, 550));
@@ -23,13 +23,26 @@ public class GamePanel extends JPanel {
 		initVariables();
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Dimension screenSize = toolkit.getScreenSize();
-		width = screenSize.width;
 		height = (int) (screenSize.height * 0.9);
+		width = (height*11482)/824;
+		limitWidth = -(width-screenSize.width);
 	}
 
 	private void initVariables() {
 		game = new Game(false);
+	}
 
+	public void setWallpaperX(int x){
+		wallpaperX -= x;
+	}
+
+	public boolean moveWallpaper(int x){
+		if(wallpaperX >= limitWidth){
+			this.wallpaperX -= x;
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	public void paint(Graphics g) {
@@ -38,21 +51,9 @@ public class GamePanel extends JPanel {
 
 		Toolkit.getDefaultToolkit().sync();
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		Image wallpaper = null;
-		if (stage >= 1 && stage < 3){
-			wallpaper = new ImageIcon(getClass()
-					.getResource(Constants.PATH_WALLPAPER_ONE)).getImage();
-		}else if (stage >= 3 && stage < 6){
-			wallpaper = new ImageIcon(getClass()
-					.getResource(Constants.PATH_WALLPAPER_TWO)).getImage();
-		}else if (stage >= 6 && stage < 10){
-			wallpaper = new ImageIcon(getClass()
-					.getResource(Constants.PATH_WALLPAPER_THREE)).getImage();
-		}else{
-			wallpaper = new ImageIcon(getClass()
-					.getResource(Constants.PATH_WALLPAPER_FINAL)).getImage();
-		}
-		g2.drawImage(wallpaper, 0, 0, this.width, this.height, null);
+		Image wallpaper = wallpaper = new ImageIcon(getClass()
+				.getResource(Constants.WALLPAPER_WORLD)).getImage();;
+		g2.drawImage(wallpaper, wallpaperX, 0, width, this.height, null);
 		
 		Image imgChicken = new ImageIcon(getClass().getResource(game.getChicken().getPath())).getImage();
 		g2.drawImage(imgChicken, game.getChicken().getX(), game.getChicken().getY(),

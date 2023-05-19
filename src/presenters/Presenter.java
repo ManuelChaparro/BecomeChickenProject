@@ -2,6 +2,7 @@ package presenters;
 
 import java.awt.AWTException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -50,8 +51,8 @@ public class Presenter implements KeyListener {
 			musicGame, musicMegalovania, musicGameOver, musicIceCream, musicInmunity, musicFast, musicHit, initTimerGameOver, blockPower;
 	private int time, timeGame, select, timerGameOver, timerPower, counter, timerInmunity, counterIceCream,
 			counterNextIceCream;
-	private TestRandomWalk randomWalk;
-	private TestMontecarlo montecarlo;
+	private List<Integer> randomWalkX, randomWalkY;
+	private Montecarlo montecarlo;
 	private ScreenService screenService;
 
 	private static ScheduledExecutorService executorService;
@@ -66,9 +67,12 @@ public class Presenter implements KeyListener {
 
 	private void initModels(){
 		screenService = new ScreenService();
-		randomWalk = new TestRandomWalk(screenService.getWidth(0.5), screenService.getWidth(1),
-				screenService.getHeight(0.5), screenService.getHeight(0.8));
-		montecarlo = new TestMontecarlo();
+		RandomWalk randomWalk = new RandomWalk();
+		long currentTimeMillis = System.currentTimeMillis();
+		int lastThreeDigits = (int) (currentTimeMillis % 1000);
+		this.randomWalkX = randomWalk.generateStep(0,1300, 9999, lastThreeDigits, 500);
+		lastThreeDigits = (int) (currentTimeMillis % 100);
+		this.randomWalkY = randomWalk.generateStep(300,550, 9999, lastThreeDigits, 380);
 	};
 
 	private void initFrame() {
@@ -411,6 +415,7 @@ public class Presenter implements KeyListener {
 					game.setIconMusic(music);
 					window.setGame(game);
 					moveIceCream();
+					moveWallpaper();
 					checkWinGame();
 					checkLifes();
 					checkFast();
@@ -434,10 +439,18 @@ public class Presenter implements KeyListener {
 				}
 			}
 
+			private void moveWallpaper(){
+				if(time % 20 == 0){
+					if(window.moveWallpaper(1) && game.getChicken().getX() >= 0){
+						game.setMoveChicken(1);
+					};
+				}
+			}
+
 			private void moveIceCream(){
-				if(time % 100 == 0){
-					game.setIceCreamX(randomWalk.getNextX());
-					game.setIceCreamY(randomWalk.getNextY());
+				if(time % 250 == 0){
+					game.setIceCreamX(randomWalkX.remove(0));
+					game.setIceCreamY(randomWalkY.remove(0));
 				}
 			}
 
@@ -537,6 +550,7 @@ public class Presenter implements KeyListener {
 						window.setGame(game);
 						game = new Game(true);
 						window.changeCardLayout("MainPanel");
+						window.setWallpaperX(0);
 						option = false;
 						musicIntro = false;
 						musicGame = true;
@@ -546,6 +560,7 @@ public class Presenter implements KeyListener {
 					window.optionLoadGame(game.getDate().toString());
 					if (enter) {
 						window.setGame(game);
+						window.setWallpaperX(game.getWallpaperX());
 						window.changeCardLayout("MainPanel");
 						option = false;
 						musicIntro = false;

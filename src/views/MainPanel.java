@@ -34,4 +34,12 @@ public class MainPanel extends JPanel{
 		gamePanel.setGame(game);
 		statusPanel.setGame(game);
 	}
+
+	public void setWallpaperX(int x){
+		gamePanel.setWallpaperX(x);
+	}
+
+	public boolean moveWallpaper(int x){
+		return gamePanel.moveWallpaper(x);
+	}
 }

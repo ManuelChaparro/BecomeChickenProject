@@ -119,4 +119,12 @@ public class MainWindow extends JFrame{
 	public void loadGame() {
 		gameOver.loadGame();
 	}
+
+	public void setWallpaperX(int x){
+		mainPanel.setWallpaperX(x);
+	}
+
+	public boolean moveWallpaper(int x){
+		return mainPanel.moveWallpaper(x);
+	}
 }

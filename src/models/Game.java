@@ -26,6 +26,7 @@ public class Game {
 	private boolean moveWizardLeft;
 	private boolean winGame;
 	private boolean moveWizard;
+	private int wallpaperX;
 
 	public Game(boolean init) {
 		if (init) {
@@ -33,6 +34,10 @@ public class Game {
 			createWolfs();
 			createGhosts();
 		}
+	}
+
+	public void setMoveChicken(int move){
+		chicken.setX(chicken.getX()-move);
 	}
 
 	public void moveEnemies() {
@@ -226,6 +231,7 @@ public class Game {
 		quantityInmunity = 4;
 		points = 0;
 		counterWizard = 0;
+		wallpaperX = 0;
 	}
 
 	private void initObjects() {
@@ -678,5 +684,13 @@ public class Game {
 
 	public void setIceCreamY(int nextY) {
 		iceCream.setY(nextY);
+	}
+
+	public int getWallpaperX() {
+		return wallpaperX;
+	}
+
+	public void setWallpaperX(int wallpaperX) {
+		this.wallpaperX = wallpaperX;
 	}
 }
