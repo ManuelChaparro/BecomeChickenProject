@@ -392,11 +392,6 @@ public class Game {
 		}
 	}
 
-	public void changeIceCream() {
-		iceCream.setX(random.nextInt(1000 - 20 - 1) + 20);
-		iceCream.setY(random.nextInt(500 - 300 - 1) + 300);
-	}
-
 	public void chickenLeft() {
 		chicken.moveLeft();
 	}
@@ -675,6 +670,13 @@ public class Game {
 	public void setBestPoint(int bestPoint) {
 		this.bestPoint = bestPoint;
 	}
-	
-	
+
+
+	public void setIceCreamX(int nextX) {
+		iceCream.setX(nextX);
+	}
+
+	public void setIceCreamY(int nextY) {
+		iceCream.setY(nextY);
+	}
 }

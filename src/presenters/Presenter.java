@@ -1,6 +1,11 @@
 package presenters;
 
 import java.awt.AWTException;
+import java.util.ArrayList;
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,13 +21,18 @@ import java.util.concurrent.TimeUnit;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.swing.JFrame;
-import javax.swing.Timer;
+import javax.swing.*;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import models.Game;
+import models.ScreenService;
+import simulationmodels.Montecarlo;
+import simulationmodels.RandomWalk;
+import test.simulationmodel.TestMontecarlo;
+import test.simulationmodel.TestRandomWalk;
 import views.Constants;
 import views.MainWindow;
 import views.ScreenShot;
@@ -40,13 +50,26 @@ public class Presenter implements KeyListener {
 			musicGame, musicMegalovania, musicGameOver, musicIceCream, musicInmunity, musicFast, musicHit, initTimerGameOver, blockPower;
 	private int time, timeGame, select, timerGameOver, timerPower, counter, timerInmunity, counterIceCream,
 			counterNextIceCream;
+	private TestRandomWalk randomWalk;
+	private TestMontecarlo montecarlo;
+	private ScreenService screenService;
+
+	private static ScheduledExecutorService executorService;
 
 	public Presenter() {
+		initModels();
 		initMusic();
 		initVariables();
 		initFrame();
 		initTimer();
 	}
+
+	private void initModels(){
+		screenService = new ScreenService();
+		randomWalk = new TestRandomWalk(screenService.getWidth(0.5), screenService.getWidth(1),
+				screenService.getHeight(0.5), screenService.getHeight(0.8));
+		montecarlo = new TestMontecarlo();
+	};
 
 	private void initFrame() {
 		window = new MainWindow();
@@ -114,7 +137,6 @@ public class Presenter implements KeyListener {
 				fileWriter.close();
 				game.setAutosave(false);
 			}
-
 		});
 		save.start();
 	}
@@ -388,6 +410,7 @@ public class Presenter implements KeyListener {
 				if (!pause) {
 					game.setIconMusic(music);
 					window.setGame(game);
+					moveIceCream();
 					checkWinGame();
 					checkLifes();
 					checkFast();
@@ -408,6 +431,13 @@ public class Presenter implements KeyListener {
 					if (!right && !left && !up) {
 						game.startStatic();
 					}
+				}
+			}
+
+			private void moveIceCream(){
+				if(time % 100 == 0){
+					game.setIceCreamX(randomWalk.getNextX());
+					game.setIceCreamY(randomWalk.getNextY());
 				}
 			}
 
@@ -442,7 +472,6 @@ public class Presenter implements KeyListener {
 					musicIceCream = false;
 					counterIceCream += 4000;
 					counterNextIceCream += 4000;
-					game.changeIceCream();
 				}
 
 			}
