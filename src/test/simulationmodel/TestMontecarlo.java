@@ -2,27 +2,15 @@ package test.simulationmodel;
 
 import simulationmodels.Montecarlo;
 
-import java.sql.Array;
-import java.util.ArrayList;
-
 
 public class TestMontecarlo {
     Montecarlo myMontecarlo = new Montecarlo();
-
-    public TestMontecarlo(){
-        TestMontecarlo tm = new TestMontecarlo();
-        tm.testAllLevel();
-        tm.testWolfProbability();
-    }
-
-
     private void testWolfProbability(){
-        ArrayList<double[]> data = new ArrayList<>();
-        for (int i = 1; i <= 4; i++) {
-            double[] vector = new double[3];
-            vector[0] = myMontecarlo.calculateProbabilityWolfOne(i);
-            vector[1] = myMontecarlo.calculateProbabilityWolfTwo(i);
-            vector[2] = myMontecarlo.calculateProbabilityWolfThree(i);
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("Nivel " + i );
+            System.out.println(myMontecarlo.calculateProbabilityWolfOne(i));
+            System.out.println(myMontecarlo.calculateProbabilityWolfTwo(i));
+            System.out.println(myMontecarlo.calculateProbabilityWolfThree(i));
         }
     }
 
@@ -41,5 +29,11 @@ public class TestMontecarlo {
         testLevel(3);
         System.out.println("Nivel 4");
         testLevel(4);
+    }
+
+    public static void main(String[] args) {
+        TestMontecarlo tm = new TestMontecarlo();
+
+        tm.testWolfProbability();
     }
 }

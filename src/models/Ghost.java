@@ -24,6 +24,7 @@ public class Ghost {
 		moveDown = true;
 	}
 
+
 	public void setX(int x) {
 		this.x = x;
 	}
@@ -51,37 +52,11 @@ public class Ghost {
 	}
 	
 	public void moveRight() {
-		if (x < 870) {
-			x += 6;
-			counterSteps += 1;
-			if (counterSteps == 5) {
-				path = Constants.PATH_GHOST_R_1;
-			}
-			if (counterSteps == 10) {
-				path = Constants.PATH_GHOST_R_2;
-			}
-			if (counterSteps == 15) {
-				path = Constants.PATH_GHOST_R_3;
-				counterSteps = 0;
-			}
-		}
+		x += 1;
 	}
-	
-	public void moveLeft() {
-		if (x > -200) {
-			x -= 1;
-			counterSteps += 1;
-			if (counterSteps == 20) {
-				path = Constants.PATH_GHOST_L_1;
-			}
-			if (counterSteps == 40) {
-				path = Constants.PATH_GHOST_L_2;
-			}
-			if (counterSteps == 60) {
-				path = Constants.PATH_GHOST_L_3;
-				counterSteps = 0;
-			}
-		}
+
+	public void moveLeft(){
+		x -= 1;
 	}
 
 	public void setY(int y) {

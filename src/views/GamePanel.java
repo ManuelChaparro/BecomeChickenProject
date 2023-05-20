@@ -66,10 +66,11 @@ public class GamePanel extends JPanel {
 		}
 		
 		if (game.isStageWolfs()) {
-			for (Integer id : game.getWolfs().keySet()) {
+			for (int id = 0; id < game.getQuantityWolfs(); id++) {
 				Image imgWolf = new ImageIcon(getClass().getResource(game.getWolfs().get(id).getPath())).getImage();
 				g2.drawImage(imgWolf, game.getWolfs().get(id).getX(), game.getWolfs().get(id).getY(),
 						game.getWolfs().get(id).getWidth(), game.getWolfs().get(id).getHeight(), null);
+
 			}
 		}
 		

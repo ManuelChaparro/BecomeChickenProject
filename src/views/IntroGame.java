@@ -65,7 +65,7 @@ public class IntroGame extends JPanel{
 		g2.setFont(Constants.FONT_MIN);
 		g2.drawString(infoStory, 200, 700);
 		g2.drawString(infoStoryTwo, 200, 720);
-		g2.drawString("Pulsa 'W' 'A' 'D' para omitir...", 200, 20);
+		g2.drawString("Pulsa '↑' '←' '→' al mismo tiempo para omitir...", 200, 20);
 		repaint();
 	}
 

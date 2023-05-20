@@ -52,8 +52,8 @@ public class Presenter implements KeyListener {
 	private int time, timeGame, select, timerGameOver, timerPower, counter, timerInmunity, counterIceCream,
 			counterNextIceCream;
 	private List<Integer> randomWalkX, randomWalkY;
-	private Montecarlo montecarlo;
 	private ScreenService screenService;
+	private int stage;
 
 	private static ScheduledExecutorService executorService;
 
@@ -89,6 +89,7 @@ public class Presenter implements KeyListener {
 		counterIceCream = 2000;
 		counterNextIceCream = 4000;
 		timeSaveAndScreenshot = 10000;
+		stage = 0;
 	}
 	
 	private void loadGame() {
@@ -132,14 +133,19 @@ public class Presenter implements KeyListener {
 			}
 
 			private void saveGame() throws InterruptedException, IOException {
-				game.setAutosave(true);
-				Thread.sleep(2000);
-				game.setDate("Ultima partida jugada el: " + Calendar.getInstance().getTime().toString());
-				FileWriter fileWriter;
-				fileWriter = new FileWriter(Constants.PATH_DATA_GAME);
-				fileWriter.write(new Gson().toJson(game));
-				fileWriter.close();
-				game.setAutosave(false);
+				if(game != null){
+					if(game.getStage() != stage){
+						stage = game.getStage();
+						game.setAutosave(true);
+						Thread.sleep(2000);
+						game.setDate("Ultima partida jugada el: " + Calendar.getInstance().getTime().toString());
+						FileWriter fileWriter;
+						fileWriter = new FileWriter(Constants.PATH_DATA_GAME);
+						fileWriter.write(new Gson().toJson(game));
+						fileWriter.close();
+						game.setAutosave(false);
+					}
+				}
 			}
 		});
 		save.start();
@@ -353,10 +359,7 @@ public class Presenter implements KeyListener {
 			}
 
 			private void verifySaveAndScreenshot() {
-				if (timeGame >= timeSaveAndScreenshot) {
-					initSave();
-					timeSaveAndScreenshot += 10000;
-				}
+				initSave();
 			}
 
 			private void timerGameOver() {
@@ -615,19 +618,19 @@ public class Presenter implements KeyListener {
 			game.setMoveGhost(pause);
 			pause = !pause;
 		}
-		if (e.getKeyCode() == KeyEvent.VK_A) {
+		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			left = true;
 			if (select > 1) {
 				select--;
 			}
 		}
-		if (e.getKeyCode() == KeyEvent.VK_D) {
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			right = true;
 			if (select < 3) {
 				select++;
 			}
 		}
-		if (e.getKeyCode() == KeyEvent.VK_W) {
+		if (e.getKeyCode() == KeyEvent.VK_UP) {
 			up = true;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -654,10 +657,10 @@ public class Presenter implements KeyListener {
 	}
 
 	public void keyReleased(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_A) {
+		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			left = false;
 		}
-		if (e.getKeyCode() == KeyEvent.VK_D) {
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			right = false;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {

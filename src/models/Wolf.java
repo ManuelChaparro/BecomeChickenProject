@@ -18,7 +18,7 @@ public class Wolf {
 	private int timerJump;
 	private boolean validationJump;
 
-	public Wolf(String path, int quality) {
+	public Wolf(String path) {
 		validationJump = false;
 		x = 1100;
 		y = 530;
@@ -26,7 +26,6 @@ public class Wolf {
 		height = 80;
 		timerJump = 0;
 		this.path = path;
-		this.quality = quality;
 		createPowers();
 	}
 	
@@ -35,27 +34,16 @@ public class Wolf {
 	}
 
 	private void createPowers() {
-		if (quality == 4) {
-			SPEED = 3;
-		}else if(quality == 8){
-			SPEED = 5;
-		}else if(quality == 12){
-			SPEED = 5;
-		}
-		else if(quality == 16){
-			SPEED = 7;
-		}
-		else if(quality == 20){
-			SPEED = 8;
-		}
-		else if(quality == 24){
-			SPEED = 7;
-		}
-		else if(quality == 28){
-			SPEED = 9;
-		}
-		else if(quality == 30){
-			SPEED = 8;
+		switch (quality){
+			case 1:
+				SPEED = 4;
+				break;
+			case 2:
+				SPEED = 8;
+				break;
+			case 3:
+				SPEED = 20;
+				break;
 		}
 	}
 
@@ -73,7 +61,7 @@ public class Wolf {
 	}
 	
 	public void moveLeft() {
-		if (x > -2000) {
+		if (x > -200) {
 			x -= SPEED;
 			counterSteps += 1;
 			if (counterSteps == 20) {

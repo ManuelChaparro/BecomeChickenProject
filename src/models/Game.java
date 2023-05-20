@@ -1,7 +1,11 @@
 package models;
 
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
+
+import simulationmodels.Montecarlo;
 import views.Constants;
 
 public class Game {
@@ -9,7 +13,7 @@ public class Game {
 	private ConcurrentHashMap<Integer, Wolf> wolfs;
 	private ConcurrentHashMap<Integer, Ghost> ghosts;
 	private int stage = 1;
-	private int distanceWolfs = 600;
+	private int distanceWolfs;
 	private int quantityInmunity;
 	private int points;
 	private int bestPoint;
@@ -27,6 +31,9 @@ public class Game {
 	private boolean winGame;
 	private boolean moveWizard;
 	private int wallpaperX;
+	private ArrayList<double[]> dataMontecarlo;
+	private int width;
+	private int quantityWolfs;
 
 	public Game(boolean init) {
 		if (init) {
@@ -36,8 +43,12 @@ public class Game {
 		}
 	}
 
-	public void setMoveChicken(int move){
-		chicken.setX(chicken.getX()-move);
+	public void setMoveChicken(int move) {
+		chicken.setX(chicken.getX() - move);
+	}
+
+	public int getQuantityWolfs() {
+		return quantityWolfs;
 	}
 
 	public void moveEnemies() {
@@ -52,20 +63,22 @@ public class Game {
 			break;
 		case 2:
 			if (stageWolfs) {
-				stageWolfs(4);
+				stageWolfs(7);
 			} else {
 				stageGhosts(4);
 			}
 			break;
 		case 3:
+			distanceWolfs = resetPositionWolf ? (int) (width*0.6): distanceWolfs;
 			tutorial = false;
 			if (stageWolfs) {
-				stageWolfs(8);
+				stageWolfs(10);
 			} else {
 				stageGhosts(6);
 			}
 			break;
 		case 4:
+			distanceWolfs = resetPositionWolf ? (int) (width*0.65): distanceWolfs;
 			if (stageWolfs) {
 				stageWolfs(12);
 			} else {
@@ -73,6 +86,7 @@ public class Game {
 			}
 			break;
 		case 5:
+			distanceWolfs = resetPositionWolf ? (int) (width*0.7): distanceWolfs;
 			if (stageWolfs) {
 				stageWolfs(16);
 			} else {
@@ -80,7 +94,7 @@ public class Game {
 			}
 			break;
 		case 6:
-			distanceWolfs = 500;
+			distanceWolfs = resetPositionWolf ? (int) (width*0.72): distanceWolfs;
 			if (stageWolfs) {
 				stageWolfs(20);
 			} else {
@@ -88,7 +102,7 @@ public class Game {
 			}
 			break;
 		case 7:
-			distanceWolfs = 500;
+			distanceWolfs = resetPositionWolf ? (int) (width*0.75): distanceWolfs;
 			if (stageWolfs) {
 				stageWolfs(24);
 			} else {
@@ -96,7 +110,7 @@ public class Game {
 			}
 			break;
 		case 8:
-			distanceWolfs = 480;
+			distanceWolfs = resetPositionWolf ? (int) (width*0.77): distanceWolfs;
 			if (stageWolfs) {
 				stageWolfs(28);
 			} else {
@@ -104,7 +118,7 @@ public class Game {
 			}
 			break;
 		case 9:
-			distanceWolfs = 460;
+			distanceWolfs = resetPositionWolf ? (int) (width*0.80): distanceWolfs;
 			if (stageWolfs) {
 				stageWolfs(30);
 			} else {
@@ -112,6 +126,7 @@ public class Game {
 			}
 			break;
 		case 10:
+			distanceWolfs = resetPositionWolf ? (int) (width*0.75): distanceWolfs;
 			tutorial = false;
 			stageWizard();
 			break;
@@ -226,12 +241,28 @@ public class Game {
 	}
 
 	private void initVariables() {
+		dataMontecarlo = montecarloWolfsProbability(new Montecarlo());
 		initObjects();
 		initBooleans();
 		quantityInmunity = 4;
 		points = 0;
 		counterWizard = 0;
 		wallpaperX = 0;
+		width = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+		distanceWolfs = (int) (width*0.5);
+		quantityWolfs = 4;
+	}
+
+	private ArrayList<double[]> montecarloWolfsProbability(Montecarlo montecarlo) {
+		ArrayList<double[]> toReturn = new ArrayList<double[]>();
+		for (int i = 1; i <= 5; i++) {
+			double[] toAssign = new double[3];
+			toAssign[0] = montecarlo.calculateProbabilityWolfOne(i);
+			toAssign[1] = montecarlo.calculateProbabilityWolfTwo(i);
+			toAssign[2] = montecarlo.calculateProbabilityWolfThree(i);
+			toReturn.add(toAssign);
+		}
+		return toReturn;
 	}
 
 	private void initObjects() {
@@ -263,20 +294,59 @@ public class Game {
 	}
 
 	private void createWolfs() {
-		int distance = 0;
 		for (int i = 0; i < Constants.QUANTITY_WOLFS; i++) {
-			distance += distanceWolfs;
-			Wolf wolf = new Wolf(Constants.PATH_WOLF_L_1, 1);
-			wolf.setDelayJump(random.nextInt(100 - 20 - 1) + 20);
-			wolf.setX(wolf.getX() + distance);
+			Wolf wolf = new Wolf(Constants.PATH_WOLF_L_1);
+			wolf.setDelayJump(random.nextInt(200 - 20 - 1) + 20);
+			wolf.setX(width);
 			wolfs.put(i, wolf);
+		}
+		createWolfsQuality(stage);
+	}
+
+	private void createWolfsQuality(int stage){
+		if(this.stage < 2){
+			setWolfsQuality(dataMontecarlo.get(0), stage);
+		}else if(this.stage < 5){
+			setWolfsQuality(dataMontecarlo.get(1), stage);
+		}else if(this.stage < 9){
+			setWolfsQuality(dataMontecarlo.get(2), stage);
+		}else{
+			setWolfsQuality(dataMontecarlo.get(3), stage);
+		}
+
+	}
+
+	private static int generateNextNumber(int seed) {
+		int square = seed * seed;
+		String squareString = String.valueOf(square);
+		while (squareString.length() < 8) {
+			squareString = "0" + squareString;
+		}
+		int startIndex = (squareString.length() - 8) / 2;
+		int endIndex = startIndex + 8;
+		String middleDigits = squareString.substring(startIndex, endIndex);
+		return Math.abs(Integer.parseInt(middleDigits));
+	}
+
+	private void setWolfsQuality(double[] probabilities, int stage) {
+		int seed = 49284567;
+		for (int i = 0; i < wolfs.size(); i++) {
+			seed = generateNextNumber(seed);
+			double toCompare = Double.parseDouble("0."+String.valueOf(seed));
+			if (toCompare >= 0 && toCompare < probabilities[0]){
+				wolfs.get(i).setQuality(1);
+			}else if(toCompare >= probabilities[0] && toCompare < probabilities[1]+probabilities[0]){
+				wolfs.get(i).setQuality(2);
+				wolfs.get(i).setDelayJump(20);
+			}else{
+				wolfs.get(i).setQuality(3);
+			}
 		}
 	}
 
 	private void createGhosts() {
 		for (int i = 0; i < Constants.QUANTITY_GHOSTS; i++) {
-			Ghost ghost = new Ghost(Constants.PATH_GHOST_L_1, random.nextInt(1000 - 20 - 1) + 20);
-			ghost.setX(ghost.getX());
+			Ghost ghost = new Ghost(Constants.PATH_GHOST_F_1, random.nextInt((int) (width*1.1)));
 			ghosts.put(i, ghost);
 		}
 	}
@@ -318,7 +388,9 @@ public class Game {
 				ghosts.get(id).moveSpriteActive();
 				ghosts.get(id).moveDown();
 				checkColisionGhosts();
+				ghosts.get(id).moveRight();
 			} else {
+				ghosts.get(id).moveLeft();
 				ghosts.get(id).moveSpriteFront();
 				ghosts.get(id).setMoveDown();
 			}
@@ -326,11 +398,11 @@ public class Game {
 	}
 
 	private void stageWolfs(int stage) {
+		quantityWolfs = stage;
 		if (moveWolfs) {
 			resetPositionWolfs();
 			checkColisionWolfs();
-			moveWolfs(stage);
-			checkFinalWolf(stage);
+			validateWolfs(stage);
 		}
 	}
 
@@ -343,24 +415,20 @@ public class Game {
 
 	private void resetPositionWolfs() {
 		if (resetPositionWolf) {
-			int distance = 0;
 			for (Integer id : wolfs.keySet()) {
-				distance += distanceWolfs;
-				wolfs.get(id).setX(1000 + distance);
+				wolfs.get(id).setX(width);
 				wolfs.get(id).setY(530);
 			}
 			resetPositionWolf = false;
 		}
-
 	}
 
 	private void checkFinalWolf(int stage) {
-		if (wolfs.get(stage - 1).getX() <= -500) {
-			stageWolfs = false;
-			stageGhosts = true;
-			resetPositionWolf = true;
-			wizard.setShow(false);
-		}
+		stageWolfs = false;
+		stageGhosts = true;
+		resetPositionWolf = true;
+		wizard.setShow(false);
+		createWolfsQuality(stage);
 	}
 
 	private void checkColisionWolfs() {
@@ -387,12 +455,29 @@ public class Game {
 		return lostLife;
 	}
 
-	private void moveWolfs(int stage) {
+	private void validateWolfs(int stage) {
+		int idFinalWolf = 0, xFinalWolf = wolfs.get(0).getX();
 		for (int id = 0; id < stage; id++) {
-			wolfs.get(id).setQuality(stage);
-			wolfs.get(id).moveLeft();
-			if (wolfs.get(id).getQuality() == 12 || wolfs.get(id).getQuality() == 24
-					|| wolfs.get(id).getQuality() == 30) {
+			if (wolfs.get(id).getX() > xFinalWolf) {
+				xFinalWolf = wolfs.get(id).getX();
+				idFinalWolf = id;
+			}
+			moveWolfs(id);
+		}
+		if(wolfs.get(idFinalWolf).getX() <= -100){
+			checkFinalWolf(stage);
+		}
+	}
+
+	private void moveWolfs(int id) {
+		if(wolfs.get(id).getX() >= -(width*0.1)){
+			if (id==0){
+				wolfs.get(id).moveLeft();
+			}else if(wolfs.get(id-1).getX() <= distanceWolfs){
+				wolfs.get(id).moveLeft();
+			}
+
+			if(wolfs.get(id).getQuality()==2){
 				wolfs.get(id).moveUp();
 			}
 		}

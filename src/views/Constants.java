@@ -13,7 +13,6 @@ public class Constants {
 	public static final String PATH_CKN_R_2 = "/img/right2.png";
 	public static final String PATH_CKN_R_3 = "/img/right3.png";
 	public static final String PATH_CKN_FRONT = "/img/front.png";
-	public static final String PATH_CKN_BACK = "/img/back.png";
 	public static final String PATH_CKN_OVER = "/img/chickenOver.png";
 	public static final String PATH_HEN= "/img/hen.png";
 	public static final String PATH_CKNP_L_1 = "/img/chickenPowerL1.png";
@@ -28,13 +27,7 @@ public class Constants {
 	public static final String PATH_WOLF_L_3 = "/img/wolfleft3.png"; 
 	public static final String PATH_WOLF_R_1 = "/img/wolfright1.png"; 
 	public static final String PATH_WOLF_R_2 = "/img/wolfright2.png"; 
-	public static final String PATH_WOLF_R_3 = "/img/wolfright3.png"; 
-	public static final String PATH_GHOST_L_1 = "/img/ghostLeft1.png"; 
-	public static final String PATH_GHOST_L_2 = "/img/ghostLeft2.png"; 
-	public static final String PATH_GHOST_L_3 = "/img/ghostLeft3.png"; 
-	public static final String PATH_GHOST_R_1 = "/img/ghostRight1.png"; 
-	public static final String PATH_GHOST_R_2 = "/img/ghostRight2.png"; 
-	public static final String PATH_GHOST_R_3 = "/img/ghostRight3.png"; 
+	public static final String PATH_WOLF_R_3 = "/img/wolfright3.png";
 	public static final String PATH_GHOST_F_1 = "/img/ghostFront1.png"; 
 	public static final String PATH_GHOST_F_2 = "/img/ghostFront2.png"; 
 	public static final String PATH_GHOST_F_3 = "/img/ghostFront3.png"; 
@@ -51,9 +44,6 @@ public class Constants {
 	public static final String PATH_WIZARD_F_2 = "/img/wizardF2.png";
 	public static final String PATH_WIZARD_F_3 = "/img/wizardF3.png";
 	public static final String WALLPAPER_WORLD = "/img/becomeChickenWorld.png";
-	public static final String PATH_WALLPAPER_ONE = "/img/wallpaperOne.PNG";
-	public static final String PATH_WALLPAPER_TWO = "/img/wallpaperTwo.PNG";
-	public static final String PATH_WALLPAPER_THREE = "/img/wallpaperThree.PNG";
 	public static final String PATH_WALLPAPER_FINAL = "/img/wallpaperFinal.PNG";
 	public static final String PATH_WALL_GME_OVER = "/img/wallpaperGameOver.png";
 	public static final String PATH_WALL_INIT = "/img/initWallpaper.jpeg";
@@ -68,21 +58,19 @@ public class Constants {
 	
 	//PATHS STRINGS
 	public static final String TUTORIAL_TITLE = "Eres completamente inmune durante el tutorial...";
-	public static final String TUTORIAL_JUMP = "* Para saltar sobre los lobos, presiona 'W'";
+	public static final String TUTORIAL_JUMP = "* Para saltar sobre los lobos, presiona '↑'";
 	public static final String TUTORIAL_JUMP_MOVE = "* Come los helados para sumar puntos";
 	public static final String SKIP_TUTORIAL = "Omite el tutorial con 'T'";
 	public static final String TUTORIAL_MOVE = "Los fantasmas blancos son peligrosos!";
-	public static final String TUTORIAL_MOVE_SECOND = "* Usa 'A' y 'D' para esquivarlos";
+	public static final String TUTORIAL_MOVE_SECOND = "* Muevete con '←' y '→' para esquivarlos!";
 	public static final String TUTORIAL_PAUSE = "* Puedes pausar el juego en cualquier momento pulsando 'ESC'";
-	public static final String TUTORIAL_FAST = "Puedes aumentar tu velocidad pulsando 'Shift'";
-	public static final String TUTORIAL_FAST_INFO = "* Dura aprox 6 segundos";
-	public static final String TUTORIAL_FAST_INFO_2 = "* Se recarga despues de cierto tiempo";
-	public static final String TUTORIAL_INMUNITY = "Usa inmunidad para ser invencible! Con 'Espacio'";
-	public static final String TUTORIAL_INMUNITY_INFO = "* No es infinito";
-	public static final String TUTORIAL_INMUNITY_INFO_2 = "* Solo puedes usarla un numero de veces limitado";
-	public static final String TUTORIAL_END_INMUNITY = "Ya no eres inmune...";
+	public static final String TUTORIAL_FAST = "Puedes aumentar tu velocidad pulsando 'Shift Izq.'";
+	public static final String TUTORIAL_FAST_INFO = "* Tiempo de duración: 6s";
+	public static final String TUTORIAL_FAST_INFO_2 = "* Se reestablece despues de unos segundos";
+	public static final String TUTORIAL_INMUNITY = "¡Inmunidad hace invencible a Dorito!";
+	public static final String TUTORIAL_INMUNITY_INFO = "* Pulsa 'Espacio' para activar Inmunidad";
+	public static final String TUTORIAL_INMUNITY_INFO_2 = "* Tiempo de duración: Unos segundos";
 	public static final String PATH_DATA_GAME = "dataGame/dataGame.json";
-	public static final String PATH_DATA_CHICKEN = "dataGame/chicken.json";
 	public static final String STORY_ONE = "Hace mucho tiempo, existia una gallina llamada Dora, la "
 			+ "cual tenia una gran cualidad...";
 	public static final String STORY_ONE_2 = "ponia huevos de oro.";
