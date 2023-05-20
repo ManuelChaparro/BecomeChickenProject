@@ -16,16 +16,20 @@ public class Ghost {
 	private boolean moveDown;
 
 	public Ghost(String path, int randomPosition) {
-		x = randomPosition;
-		y = 200;
-		width = 100;
-		height = 100;
+		x = resizeX(randomPosition);
+		y = resizeY(200);
+		width = resizeX(100);
+		height = resizeY(100);
 		this.path = path;
 		moveDown = true;
 	}
 
-	public void setX(int x) {
-		this.x = x;
+	public int resizeX(int value){
+		return new Resizor().updDateX(value);
+	}
+
+	public int resizeY(int value){
+		return new Resizor().updDateX(value);
 	}
 	
 	public void setMoveDown() {
@@ -38,9 +42,9 @@ public class Ghost {
 	
 	public void moveDown() {
 		counterDown += 16;
-		if (530 > counterDown) {
+		if (resizeY(530) > counterDown) {
 			y += 10;
-		} else if (530 < counterDown) {
+		} else if (resizeY(530) < counterDown) {
 			y -= 10;
 			if (y == 200) {				
 				counterDown = 0;
@@ -51,7 +55,7 @@ public class Ghost {
 	}
 	
 	public void moveRight() {
-		if (x < 870) {
+		if (x < resizeX(870)) {
 			x += 6;
 			counterSteps += 1;
 			if (counterSteps == 5) {
@@ -68,7 +72,7 @@ public class Ghost {
 	}
 	
 	public void moveLeft() {
-		if (x > -200) {
+		if (x > -(resizeX(200))) {
 			x -= 1;
 			counterSteps += 1;
 			if (counterSteps == 20) {
@@ -84,8 +88,12 @@ public class Ghost {
 		}
 	}
 
+	public void setX(int x) {
+		this.x = resizeX(x);
+	}
+
 	public void setY(int y) {
-		this.y = y;
+		this.y = resizeY(y);
 	}
 
 	public void setPath(String path) {
@@ -109,7 +117,7 @@ public class Ghost {
 	}
 
 	public void setWidth(int width) {
-		this.width = width;
+		this.width = resizeX(width);
 	}
 
 	public int getHeight() {
@@ -117,7 +125,7 @@ public class Ghost {
 	}
 
 	public void setHeight(int height) {
-		this.height = height;
+		this.height = resizeY(height);
 	}
 	
 	public Rectangle getRectangle() {

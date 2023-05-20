@@ -1,6 +1,7 @@
 package models;
 
-import java.awt.Rectangle;
+import java.awt.*;
+
 import views.Constants;
 
 public class Wolf {
@@ -20,18 +21,30 @@ public class Wolf {
 
 	public Wolf(String path, int quality) {
 		validationJump = false;
-		x = 1100;
-		y = 530;
-		width = 110;
-		height = 80;
+		x = resizeX(1100);
+		y = resizeY(530);
+		width = resizeX(110);
+		height = resizeY(80);
 		timerJump = 0;
 		this.path = path;
 		this.quality = quality;
 		createPowers();
 	}
+
+	public Dimension getScreenSize(){
+		return new Resizor().getTrueScreeenSize();
+	}
+
+	public int resizeX(int value){
+		return new Resizor().updDateX(value);
+	}
+
+	public int resizeY(int value){
+		return new Resizor().updDateX(value);
+	}
 	
 	public void setSpeed(int speed) {
-		this.SPEED = speed;
+		this.SPEED = resizeX(speed);
 	}
 
 	private void createPowers() {
@@ -69,11 +82,11 @@ public class Wolf {
 	}
 
 	public void setX(int x) {
-		this.x = x;
+		this.x = resizeX(x);
 	}
 	
 	public void moveLeft() {
-		if (x > -2000) {
+		if (x > -(width)) {
 			x -= SPEED;
 			counterSteps += 1;
 			if (counterSteps == 20) {
@@ -90,7 +103,7 @@ public class Wolf {
 	}
 	
 	public void moveRight() {
-		if (x < 1500) {
+		if (x < resizeX(1500)) {
 			x += SPEED;
 			counterSteps += 1;
 			if (counterSteps == 20) {
@@ -115,7 +128,7 @@ public class Wolf {
 				y -= 8;
 			} else if (Constants.TOP_JUMP < counterJump) {
 				y += 8;
-				if (y == 530) {				
+				if (y == resizeY(530)) {
 					counterJump = 0;
 					timerJump = 0;
 					validationJump = false;
@@ -129,7 +142,7 @@ public class Wolf {
 	}
 
 	public void setY(int y) {
-		this.y = y;
+		this.y = resizeY(y);
 	}
 
 	public void setPath(String path) {

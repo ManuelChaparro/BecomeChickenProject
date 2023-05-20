@@ -6,9 +6,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
-import java.awt.Toolkit;
 import javax.swing.*;
 import models.Game;
+import models.Resizor;
 
 public class GamePanel extends JPanel {
 
@@ -16,27 +16,25 @@ public class GamePanel extends JPanel {
 	private Game game;
 	private Image iconTutorial;
 	private int stage, width, height;
+
+	private Resizor resizor = new Resizor();
 	
 	public GamePanel() {
-		setPreferredSize(new Dimension(1000, 550));
+		setPreferredSize(new Dimension(resizor.updDateX(1000), resizor.updDateY(550)));
 		setBackground(Color.BLACK);
 		initVariables();
-		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		Dimension screenSize = toolkit.getScreenSize();
-		width = screenSize.width;
-		height = (int) (screenSize.height * 0.9);
+		width = resizor.getTrueScreeenSize().width;
+		height = (int) (resizor.getTrueScreeenSize().height * 0.9);
 	}
 
 	private void initVariables() {
 		game = new Game(false);
-
 	}
 
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		super.paint(g2);
 
-		Toolkit.getDefaultToolkit().sync();
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		Image wallpaper = null;
 		if (stage >= 1 && stage < 3){
@@ -82,12 +80,12 @@ public class GamePanel extends JPanel {
 		
 		if (game.isMusic()) {
 			Image imgMusic = new ImageIcon(getClass().getResource(Constants.PATH_ICON_MUSIC)).getImage();
-			g2.drawImage(imgMusic, 1300, 20, 50, 50, null);
+			g2.drawImage(imgMusic, resizor.updDateX(1300), resizor.updDateY(20), resizor.updDateX(50), resizor.updDateY(50), null);
 		}
 		
 		if (game.isAutosave()) {
 			Image imgMusic = new ImageIcon(getClass().getResource(Constants.PATH_ICON_AUTOSAVE)).getImage();
-			g2.drawImage(imgMusic, 1240, 20, 50, 50, null);
+			g2.drawImage(imgMusic, resizor.updDateX(1240), resizor.updDateY(20), resizor.updDateX(50), resizor.updDateY(50), null);
 		}
 		
 		if (game.getScreenShot()) {
@@ -117,63 +115,63 @@ public class GamePanel extends JPanel {
 
 	private void tutoInmunity(Graphics2D g2) {
 		g2.setColor(Color.WHITE);
-		g2.fillRect(0, 45, 1100, 130);
-		g2.fillOval(1040, 45, 130, 130);
+		g2.fillRect(0, resizor.updDateY(45), resizor.updDateX(1100), resizor.updDateY(130));
+		g2.fillOval(resizor.updDateX(1040), resizor.updDateY(45), resizor.updDateX(130), resizor.updDateY(130));
 		
 		g2.setFont(Constants.FONT_DEFAULT);
 		g2.setColor(Color.BLACK);
-		g2.drawString(Constants.TUTORIAL_INMUNITY, 10, 80);
-		g2.drawString(Constants.TUTORIAL_INMUNITY_INFO_2, 10, 120);
-		g2.drawString(Constants.TUTORIAL_INMUNITY_INFO, 10, 160);
+		g2.drawString(Constants.TUTORIAL_INMUNITY, resizor.updDateX(10), resizor.updDateY(80));
+		g2.drawString(Constants.TUTORIAL_INMUNITY_INFO_2, resizor.updDateX(10), resizor.updDateY(120));
+		g2.drawString(Constants.TUTORIAL_INMUNITY_INFO, resizor.updDateX(10), resizor.updDateY(160));
 		
 		iconTutorial = new ImageIcon(getClass().getResource(Constants.PATH_INMUNITY)).getImage();
-		g2.drawImage(iconTutorial, 1070, 60, 100, 100, null);
+		g2.drawImage(iconTutorial, resizor.updDateX(1070), resizor.updDateY(60), resizor.updDateX(100), resizor.updDateY(100), null);
 	}
 
 	private void tutoFast(Graphics2D g2) {
 		g2.setColor(Color.WHITE);
-		g2.fillRect(0, 45, 1100, 130);
-		g2.fillOval(1040, 45, 130, 130);
+		g2.fillRect(0, resizor.updDateY(45), resizor.updDateX(1100), resizor.updDateY(130));
+		g2.fillOval(resizor.updDateX(1040), resizor.updDateY(45), resizor.updDateX(130), resizor.updDateY(130));
 		
 		g2.setFont(Constants.FONT_DEFAULT);
 		g2.setColor(Color.BLACK);
-		g2.drawString(Constants.TUTORIAL_FAST, 10, 80);
-		g2.drawString(Constants.TUTORIAL_FAST_INFO_2, 10, 120);
-		g2.drawString(Constants.TUTORIAL_FAST_INFO, 10, 160);
+		g2.drawString(Constants.TUTORIAL_FAST, resizor.updDateX(10), resizor.updDateY(80));
+		g2.drawString(Constants.TUTORIAL_FAST_INFO_2, resizor.updDateX(10), resizor.updDateY(120));
+		g2.drawString(Constants.TUTORIAL_FAST_INFO, resizor.updDateX(10), resizor.updDateY(160));
 		
 		iconTutorial = new ImageIcon(getClass().getResource(Constants.PATH_FAST)).getImage();
-		g2.drawImage(iconTutorial, 1070, 60, 60, 100, null);
+		g2.drawImage(iconTutorial, resizor.updDateX(1070), resizor.updDateY(60), resizor.updDateX(60), resizor.updDateY(100), null);
 	}
 
 	private void tutoGhosts(Graphics2D g2) {
 		g2.setColor(Color.WHITE);
-		g2.fillRect(0, 45, 1100, 130);
-		g2.fillOval(1040, 45, 130, 130);
+		g2.fillRect(0, resizor.updDateY(45), resizor.updDateX(1100), resizor.updDateY(130));
+		g2.fillOval(resizor.updDateX(1040), resizor.updDateY(45), resizor.updDateX(130), resizor.updDateY(130));
 		
 		g2.setFont(Constants.FONT_DEFAULT);
 		g2.setColor(Color.BLACK);
-		g2.drawString(Constants.TUTORIAL_TITLE, 10, 80);
-		g2.drawString(Constants.TUTORIAL_MOVE, 10, 120);
-		g2.drawString(Constants.TUTORIAL_MOVE_SECOND, 10, 160);
+		g2.drawString(Constants.TUTORIAL_TITLE, resizor.updDateX(10), resizor.updDateY(80));
+		g2.drawString(Constants.TUTORIAL_MOVE, resizor.updDateX(10), resizor.updDateY(120));
+		g2.drawString(Constants.TUTORIAL_MOVE_SECOND, resizor.updDateX(10), resizor.updDateY(160));
 	}
 
 	private void tutoWolfs(Graphics2D g2) {
 		g2.setColor(Color.WHITE);
-		g2.fillRect(0, 45, 1100, 130);
-		g2.fillOval(1040, 45, 130, 130);
+		g2.fillRect(0, resizor.updDateY(45), resizor.updDateX(1100), resizor.updDateY(130));
+		g2.fillOval(resizor.updDateX(1040), resizor.updDateY(45), resizor.updDateX(130), resizor.updDateY(130));
 		
 		g2.setFont(Constants.FONT_DEFAULT);
 		g2.setColor(Color.BLACK);
-		g2.drawString(Constants.TUTORIAL_TITLE, 10, 80);
-		g2.drawString(Constants.TUTORIAL_JUMP, 10, 120);
-		g2.drawString(Constants.TUTORIAL_JUMP_MOVE, 10, 160);
+		g2.drawString(Constants.TUTORIAL_TITLE, resizor.updDateX(10), resizor.updDateY(80));
+		g2.drawString(Constants.TUTORIAL_JUMP, resizor.updDateX(10), resizor.updDateY(120));
+		g2.drawString(Constants.TUTORIAL_JUMP_MOVE, resizor.updDateX(10), resizor.updDateY(160));
 		
 		g2.setColor(Color.WHITE);
 		g2.setFont(Constants.FONT_MIN);
-		g2.drawString(Constants.SKIP_TUTORIAL, 10, 30);
+		g2.drawString(Constants.SKIP_TUTORIAL, resizor.updDateX(10), resizor.updDateY(30));
 		
 		iconTutorial = new ImageIcon(getClass().getResource(Constants.PATH_ICECREAM)).getImage();
-		g2.drawImage(iconTutorial, 1070, 60, 100, 100, null);
+		g2.drawImage(iconTutorial, resizor.updDateX(1070), resizor.updDateY(60), resizor.updDateX(100), resizor.updDateY(100), null);
 	}
 	
 	public void setGame(Game game) {

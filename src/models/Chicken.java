@@ -21,13 +21,12 @@ public class Chicken {
 	private int HEIGHT_Y;
 
 	public Chicken(String path) {
-		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		Dimension screenSize = toolkit.getScreenSize();
+		Dimension screenSize = getScreenSize();
 		HEIGHT_Y = (int) (screenSize.height * 0.69);
-		x = 20;
+		x = resizeX(20);
 		y = HEIGHT_Y;
-		width = 80;
-		height = 80;
+		width = resizeX(80);
+		height = resizeY(80);
 		speed = SPEED_NORMAL;
 		power = 0;
 		this.path = path;
@@ -35,15 +34,27 @@ public class Chicken {
 	}
 
 	public void setX(int x) {
-		this.x = x;
+		this.x = resizeX(x);
+	}
+
+	public Dimension getScreenSize(){
+		return new Resizor().getTrueScreeenSize();
+	}
+
+	public int resizeX(int value){
+		return new Resizor().updDateX(value);
+	}
+
+	public int resizeY(int value){
+		return new Resizor().updDateX(value);
 	}
 
 	public void moveRight() {
-		if (x < 1285) {
+		if (x < resizeX(1285)) {
 			speed += power;
 			x += speed;
 			speed = SPEED_NORMAL;
-			counterSteps += 1;			
+			counterSteps += 1;
 			if (inmunity) {
 				if (counterSteps == 5) {
 					path = Constants.PATH_CKNP_R_1;
@@ -117,7 +128,7 @@ public class Chicken {
 	}
 
 	public void setY(int y) {
-		this.y = y;
+		this.y = resizeY(y);
 	}
 
 	public void setPath(String path) {

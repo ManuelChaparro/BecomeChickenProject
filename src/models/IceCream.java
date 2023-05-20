@@ -1,6 +1,6 @@
 package models;
 
-import java.awt.Rectangle;
+import java.awt.*;
 
 public class IceCream {
 	
@@ -10,10 +10,22 @@ public class IceCream {
 	private int height;
 	
 	public IceCream(int x, int y, int width, int height) {
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
+		this.x = resizeX(x);
+		this.y = resizeY(y);
+		this.width = resizeX(width);
+		this.height = resizeY(height);
+	}
+
+	public Dimension getScreenSize(){
+		return new Resizor().getTrueScreeenSize();
+	}
+
+	public int resizeX(int value){
+		return new Resizor().updDateX(value);
+	}
+
+	public int resizeY(int value){
+		return new Resizor().updDateX(value);
 	}
 	
 	public int getWidth() {
@@ -21,7 +33,7 @@ public class IceCream {
 	}
 
 	public void setWidth(int width) {
-		this.width = width;
+		this.width = resizeX(width);
 	}
 
 	public int getHeight() {
@@ -29,7 +41,7 @@ public class IceCream {
 	}
 
 	public void setHeight(int height) {
-		this.height = height;
+		this.height = resizeY(height);
 	}
 
 	public int getX() {
@@ -37,7 +49,7 @@ public class IceCream {
 	}
 
 	public void setX(int x) {
-		this.x = x;
+		this.x = resizeX(x);
 	}
 
 	public int getY() {
@@ -45,7 +57,7 @@ public class IceCream {
 	}
 
 	public void setY(int y) {
-		this.y = y;
+		this.y = resizeY(y);
 	}
 	
 	public Rectangle getRectangle() {

@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import models.Game;
+import models.Resizor;
 
 public class StatusPanel extends JPanel{
 
@@ -18,11 +19,13 @@ public class StatusPanel extends JPanel{
 	private int power;
 	private Game game;
 	private static final String TITLE_POINTS = "PUNTOS: ";
+
+	private Resizor resizor = new Resizor();
 	
 	
 	public StatusPanel() {
 		game = new Game(false);
-		setPreferredSize(new Dimension(1200, 125));
+		setPreferredSize(new Dimension(resizor.updDateX(1200), resizor.updDateY(125)));
 		setBorder(new EmptyBorder(100, 100, 100, 100));
 		setBackground(Color.BLACK);
 	}
@@ -32,7 +35,7 @@ public class StatusPanel extends JPanel{
 		Graphics2D g2 = (Graphics2D) g;
 		super.paint(g2);
 		g2.setColor(Color.WHITE);
-		g2.drawRect(20, 20, 1320, 80);
+		g2.drawRect(resizor.updDateX(20), resizor.updDateY(20), resizor.updDateX(1320), resizor.updDateY(80));
 		
 		g2.setColor(Color.WHITE);
 		g2.setFont(Constants.FONT_DEFAULT);
@@ -48,7 +51,7 @@ public class StatusPanel extends JPanel{
 		int counter =650;
 		Image img = new ImageIcon(getClass().getResource(Constants.PATH_INMUNITY)).getImage(); 
 		for (int i = 0; i < game.getQuantityInmunity(); i++) {
-			g2.drawImage(img, counter, 35, 50, 50, null);
+			g2.drawImage(img, resizor.updDateX(counter), resizor.updDateY(35), resizor.updDateX(50), resizor.updDateY(50), null);
 			counter+=70;
 		}
 		
@@ -63,21 +66,21 @@ public class StatusPanel extends JPanel{
 			power = game.getChicken().getPower();
 		}
  		for (int i = 0; i < power; i++) {
-			g2.drawImage(img, counter, 35, 30, 50, null);
+			g2.drawImage(img, resizor.updDateX(counter), resizor.updDateY(35), resizor.updDateX(30), resizor.updDateY(50), null);
 			counter+=60;
 		}
 	}
 
 	private void createPoints(Graphics2D g2) {
-		g2.drawString(TITLE_POINTS , 350, 70);
-		g2.drawString(String.valueOf(game.getPoints()), 500, 70);
-		g2.drawLine(600, 20, 600, 80);
+		g2.drawString(TITLE_POINTS , resizor.updDateX(350), resizor.updDateY(70));
+		g2.drawString(String.valueOf(game.getPoints()), resizor.updDateX(500), resizor.updDateY(70));
+		g2.drawLine(resizor.updDateX(600), resizor.updDateY(20), resizor.updDateX(600), resizor.updDateY(80));
 	}
 
 	private void createStage(Graphics2D g2) {
-		g2.drawString(TITLE_LEVEL, 50, 70);
-		g2.drawString(LV, 180, 70);
-		g2.drawLine(300, 20, 300, 80);
+		g2.drawString(TITLE_LEVEL, resizor.updDateX(50), resizor.updDateY(70));
+		g2.drawString(LV, resizor.updDateX(180), resizor.updDateY(70));
+		g2.drawLine(resizor.updDateX(300), resizor.updDateY(20), resizor.updDateX(300), resizor.updDateY(80));
 	}
 	
 	public void setLevel(int level) {

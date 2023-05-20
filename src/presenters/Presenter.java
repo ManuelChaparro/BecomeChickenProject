@@ -1,6 +1,5 @@
 package presenters;
 
-import java.awt.AWTException;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,7 +24,6 @@ import com.google.gson.JsonSyntaxException;
 import models.Game;
 import views.Constants;
 import views.MainWindow;
-import views.ScreenShot;
 
 public class Presenter implements KeyListener {
 

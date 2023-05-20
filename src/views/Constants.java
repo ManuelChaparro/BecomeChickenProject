@@ -51,9 +51,9 @@ public class Constants {
 	public static final String PATH_WIZARD_F_2 = "/img/wizardF2.png";
 	public static final String PATH_WIZARD_F_3 = "/img/wizardF3.png";
 	public static final String PATH_WALLPAPER_ONE = "/img/wallpaperOne.PNG";
-	public static final String PATH_WALLPAPER_TWO = "/img/wallpaperTwo.PNG";
+	public static final String PATH_WALLPAPER_TWO = "/img/wallpaperTwo.png";
 	public static final String PATH_WALLPAPER_THREE = "/img/wallpaperThree.PNG";
-	public static final String PATH_WALLPAPER_FINAL = "/img/wallpaperFinal.PNG";
+	public static final String PATH_WALLPAPER_FINAL = "/img/wallpaperFinal.png";
 	public static final String PATH_WALL_GME_OVER = "/img/wallpaperGameOver.png";
 	public static final String PATH_WALL_INIT = "/img/initWallpaper.jpeg";
 	public static final String PATH_WALL_BCOME_CKN = "/img/becomeChicken.png";

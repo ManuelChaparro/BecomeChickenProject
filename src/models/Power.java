@@ -11,19 +11,27 @@ public class Power {
 	private int height;
 
 	public Power(String path) {
-		x = 20;
-		y = 530;
-		width = 80;
-		height = 80;
+		x = resizeX(20);
+		y = resizeY(530);
+		width = resizeX(80);
+		height = resizeY(80);
 		this.path = path;
 	}
 
+	public int resizeX(int value){
+		return new Resizor().updDateX(value);
+	}
+
+	public int resizeY(int value){
+		return new Resizor().updDateX(value);
+	}
+
 	public void setX(int x) {
-		this.x = x;
+		this.x = resizeX(x);
 	}
 
 	public void setY(int y) {
-		this.y = y;
+		this.y = resizeY(y);
 	}
 
 	public void setPath(String path) {
@@ -47,7 +55,7 @@ public class Power {
 	}
 
 	public void setWidth(int width) {
-		this.width = width;
+		this.width = resizeX(width);
 	}
 
 	public int getHeight() {
@@ -55,7 +63,7 @@ public class Power {
 	}
 
 	public void setHeight(int height) {
-		this.height = height;
+		this.height = resizeY(height);
 	}
 	
 	public Rectangle getRectangle() {

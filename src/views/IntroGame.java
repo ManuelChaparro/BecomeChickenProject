@@ -1,37 +1,37 @@
 package views;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
+import models.Resizor;
+
+import java.awt.*;
 
 import javax.swing.*;
 
 public class IntroGame extends JPanel{
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private int henX, henY, magoX, magoY, wolfX, wolfY, chickenX, chickenY;
 	private String infoStory, infoStoryTwo, pathHen, pathMago, pathWolf, pathChicken;
 	private Graphics2D g2;
-	
+
+	private Resizor resizor = new Resizor();
+
 	public IntroGame() {
 		initVariables();
 		setBackground(Color.BLACK);
 	}
 
 	private void initVariables() {
-		henX = 450;
-		henY = 525;
-		magoX = 650;
-		magoY = 525;
-		wolfX = 800;
-		wolfY = 525;
-		chickenX = 450;
-		chickenY = 525;
+		henX = resizor.updDateX(450);
+		henY = resizor.updDateY(525);
+		magoX = resizor.updDateX(650);
+		magoY = resizor.updDateY(525);
+		wolfX = resizor.updDateX(800);
+		wolfY = resizor.updDateY(525);
+		chickenX = resizor.updDateX(450);
+		chickenY = resizor.updDateY(525);
 		infoStory = "";
 		infoStoryTwo = "";
 		pathHen = Constants.PATH_HEN;
@@ -39,33 +39,33 @@ public class IntroGame extends JPanel{
 		pathWolf = Constants.PATH_NOTHING;
 		pathChicken = Constants.PATH_NOTHING;
 	}
-	
+
 	public void paint(Graphics g) {
 		g2= (Graphics2D) g;
 		super.paint(g2);
-		
+
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		
+
 		Image img = new ImageIcon(getClass().getResource(Constants.PATH_WALL_INIT)).getImage();
-		g2.drawImage(img, 200, 25, 1000, 650, null);
-		
+		g2.drawImage(img, resizor.updDateX(200), resizor.updDateY(25), resizor.updDateX(1000), resizor.updDateY(650), null);
+
 		Image hen = new ImageIcon(getClass().getResource(pathHen)).getImage();
-		g2.drawImage(hen, henX, henY, 90, 90, null);
-		
+		g2.drawImage(hen, henX, henY, resizor.updDateX(90), resizor.updDateY(90), null);
+
 		Image mago = new ImageIcon(getClass().getResource(pathMago)).getImage();
-		g2.drawImage(mago, magoX, magoY, 110, 140, null);
-		
+		g2.drawImage(mago, magoX, magoY, resizor.updDateX(110), resizor.updDateY(140), null);
+
 		Image wolf = new ImageIcon(getClass().getResource(pathWolf)).getImage();
-		g2.drawImage(wolf, wolfX, wolfY, 130, 90, null);
-		
+		g2.drawImage(wolf, wolfX, wolfY, resizor.updDateX(130), resizor.updDateY(90), null);
+
 		Image chicken = new ImageIcon(getClass().getResource(pathChicken)).getImage();
-		g2.drawImage(chicken, chickenX, chickenY, 90, 90, null);
-		
+		g2.drawImage(chicken, chickenX, chickenY, resizor.updDateX(90), resizor.updDateY(90), null);
+
 		g2.setColor(Color.WHITE);
 		g2.setFont(Constants.FONT_MIN);
-		g2.drawString(infoStory, 200, 700);
-		g2.drawString(infoStoryTwo, 200, 720);
-		g2.drawString("Pulsa 'W' 'A' 'D' para omitir...", 200, 20);
+		g2.drawString(infoStory, resizor.updDateX(200), resizor.updDateY(700));
+		g2.drawString(infoStoryTwo, resizor.updDateX(200), resizor.updDateY(720));
+		g2.drawString("Pulsa 'W' 'A' 'D' para omitir...", resizor.updDateX(200), resizor.updDateY(20));
 		repaint();
 	}
 
@@ -76,9 +76,9 @@ public class IntroGame extends JPanel{
 		pathHen = Constants.PATH_NOTHING;
 		infoStory = Constants.STORY_FOUR;
 		infoStoryTwo = "";
-		
+
 	}
-	
+
 	public void initFiveAct() {
 		pathChicken = Constants.PATH_CKN_R_1;
 		infoStory = Constants.STORY_FIVE;
@@ -107,14 +107,15 @@ public class IntroGame extends JPanel{
 	public void initFirstAct() {
 		infoStory = Constants.STORY_ONE;
 		infoStoryTwo = Constants.STORY_ONE_2;
-		
+
 	}
 
 	public void startRight() {
 		clearPanel();
 	}
-	
+
 	public void startLeft() {
 		clearPanel();
 	}
 }
+

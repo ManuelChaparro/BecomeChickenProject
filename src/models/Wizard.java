@@ -1,6 +1,6 @@
 package models;
 
-import java.awt.Rectangle;
+import java.awt.*;
 
 import views.Constants;
 
@@ -18,20 +18,27 @@ public class Wizard {
 	private boolean show;
 
 	public Wizard(String path) {
-		x = 1200;
-		y = 470;
-		width = 110;
-		height = 130;
+		x = resizeX(1200);
+		y = resizeY(470);
+		width = resizeX(110);
+		height = resizeY(130);
 		this.path = path;
 		horizontalMove = false;
 	}
+	public Dimension getScreenSize(){
+		return new Resizor().getTrueScreeenSize();
+	}
 
-	public void setX(int x) {
-		this.x = x;
+	public int resizeX(int value){
+		return new Resizor().updDateX(value);
+	}
+
+	public int resizeY(int value){
+		return new Resizor().updDateX(value);
 	}
 
 	public void moveRight() {
-		if (x < 1285) {
+		if (x < resizeX(1285)) {
 			x += 10;
 			counterSteps += 1;
 			if (counterSteps == 5) {
@@ -70,7 +77,7 @@ public class Wizard {
 			y -= 5;
 		} else if (Constants.TOP_JUMP < counterJump) {
 			y += 5;
-			if (y == 470) {
+			if (y == resizeY(470)) {
 				counterJump = 0;
 				return false;
 			}
@@ -93,7 +100,7 @@ public class Wizard {
 	}
 
 	public void setY(int y) {
-		this.y = y;
+		this.y = resizeY(y);
 	}
 
 	public void setPath(String path) {
@@ -116,8 +123,12 @@ public class Wizard {
 		return width;
 	}
 
+	public void setX(int x) {
+		this.x = resizeX(x);
+	}
+
 	public void setWidth(int width) {
-		this.width = width;
+		this.width = resizeX(width);
 	}
 
 	public int getHeight() {
@@ -125,7 +136,7 @@ public class Wizard {
 	}
 
 	public void setHeight(int height) {
-		this.height = height;
+		this.height = resizeY(height);
 	}
 
 	public boolean isHorizontalMove() {

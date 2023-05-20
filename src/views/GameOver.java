@@ -1,5 +1,7 @@
 package views;
 
+import models.Resizor;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -22,6 +24,7 @@ public class GameOver extends JPanel{
 	private String color_start = "#FFC400";
 	private String PATH_ACTUAL_CKN = Constants.PATH_CKN_L_1;
 	private String color_load = "#fffff";
+	Resizor resizor = new Resizor();
 
 	public GameOver() {
 		setBackground(Color.BLACK);
@@ -34,25 +37,25 @@ public class GameOver extends JPanel{
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		
 		Image img = new ImageIcon(getClass().getResource(Constants.PATH_WALL_GME_OVER)).getImage();
-		g2.drawImage(img, 150, 30, 1150, 550, null);
+		g2.drawImage(img, resizor.updDateX(150), resizor.updDateY(30), resizor.updDateX(1150), resizor.updDateY(550), null);
 		
 		Image imgChicken = new ImageIcon(getClass().getResource(Constants.PATH_CKN_OVER)).getImage();
-		g2.drawImage(imgChicken, 580, 400, 200, 150, null);
+		g2.drawImage(imgChicken, resizor.updDateX(580), resizor.updDateY(400), resizor.updDateX(200), resizor.updDateY(150), null);
 		
 		g2.setColor(Color.WHITE);
 		g2.setFont(Constants.FONT_MIN);
 		
 		g2.setColor(Color.decode(color_start));
-		g2.drawRect(450, 600, 180, 50);
-		g2.drawString(START_GAME, 480, 630);
+		g2.drawRect(resizor.updDateX(450), resizor.updDateY(600), resizor.updDateX(180), resizor.updDateY(50));
+		g2.drawString(START_GAME, resizor.updDateX(480), resizor.updDateY(630));
 		
 		g2.setColor(Color.decode(color_load));
-		g2.drawRect(700, 600, 180, 50);
-		g2.drawString(LOAD_GAME, 715, 630);
+		g2.drawRect(resizor.updDateX(700), resizor.updDateY(600), resizor.updDateX(180), resizor.updDateY(50));
+		g2.drawString(LOAD_GAME, resizor.updDateX(715), resizor.updDateY(630));
 		
 		g2.setColor(Color.decode(color_exit));
-		g2.drawRect(950, 600, 150, 50);
-		g2.drawString(EXIT, 1000, 630);
+		g2.drawRect(resizor.updDateX(950), resizor.updDateY(600), resizor.updDateX(150), resizor.updDateY(50));
+		g2.drawString(EXIT, resizor.updDateX(1000), resizor.updDateY(630));
 	}
 
 	public void optionInitGame() {
