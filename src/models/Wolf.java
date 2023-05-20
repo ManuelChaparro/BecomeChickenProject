@@ -86,7 +86,7 @@ public class Wolf {
 	}
 	
 	public void moveLeft() {
-		if (x > -(width)) {
+		if (x > -2000) {
 			x -= SPEED;
 			counterSteps += 1;
 			if (counterSteps == 20) {
